@@ -1,0 +1,18 @@
+# JVM options required to run orbada on Java 17.
+#
+# Java 17 enforces strong encapsulation of JDK internals.  Old Swing look-and-
+# feels (nimrod-laf, tinylaf, jgoodies-looks) and BeanShell 2.0b6 access
+# internal APIs via reflection and require the --add-opens flags below.
+#
+# Pass these flags to java when launching startup.jar, for example:
+#   java @orbada.vmoptions -jar startup.jar
+# or via the orbada.bat / orbada.sh launcher scripts.
+#
+# Flags were determined by running the application under Java 17 and observing
+# InaccessibleObjectException stack traces.  Extend this list when new
+# violations are discovered at runtime.
+
+--add-opens=java.desktop/sun.awt=ALL-UNNAMED
+--add-opens=java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+--add-opens=java.base/java.lang=ALL-UNNAMED
+--add-opens=java.base/java.lang.reflect=ALL-UNNAMED
