@@ -9,7 +9,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.mpak.sky.SkyException;
 import pl.mpak.usedb.UseDBException;
 import pl.mpak.usedb.gui.swing.types.FirebirdDBKeyType;
@@ -26,11 +27,11 @@ import pl.mpak.util.variant.Variant;
 import pl.mpak.util.variant.VariantException;
 
 /**
- * @author Andrzej Ka³u¿a
+ * @author Andrzej Kaï¿½uï¿½a
  * 
  * 
  * <p>
- * Sposób postêpowania z Query.next() jest taki
+ * Sposï¿½b postï¿½powania z Query.next() jest taki
  * 
  * <pre>
  * while (!query.eof()) {
@@ -39,37 +40,37 @@ import pl.mpak.util.variant.VariantException;
  * </pre>
  * 
  * <p>
- * Zaraz po otwarciu Query wywo³ywany jest first() Dla cacheData = false -
- * first() oznacza wywo³anie resultSet.next() wiêc nie ma potrzeby wywo³ywania
+ * Zaraz po otwarciu Query wywoï¿½ywany jest first() Dla cacheData = false -
+ * first() oznacza wywoï¿½anie resultSet.next() wiï¿½c nie ma potrzeby wywoï¿½ywania
  * tej metody samodzielnie za pierwszym razem.
  * <p>
- * <b>Kiedy ju¿ Query nie bêdzie potrzebne nale¿y go zamkn¹æ inaczej GC go nie
- * zwolni bo jest na liœcie otwartych kursorów obiektu Database.</b>
+ * <b>Kiedy juï¿½ Query nie bï¿½dzie potrzebne naleï¿½y go zamknï¿½ï¿½ inaczej GC go nie
+ * zwolni bo jest na liï¿½cie otwartych kursorï¿½w obiektu Database.</b>
  */
 public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   private static final long serialVersionUID = 6003429921261803478L;
 
-  private static final Logger LOGGER = Logger.getLogger(Query.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Query.class);
   private static Languages language = new Languages(Query.class);
   public final String uniqueID = (new UniqueID()).toString();
 
   /**
-   * FlushMode dzia³a tylko gdy ustawiony jest cacheData na true
+   * FlushMode dziaï¿½a tylko gdy ustawiony jest cacheData na true
    */
   public enum FlushMode {
     /**
-     * Nie pobieraæ automatycznie wszystkich danych
+     * Nie pobieraï¿½ automatycznie wszystkich danych
      */
     fmNone,
     /**
-     * Pobieranie danych odbêdzie siê synchronicznie, powrót z funkcji open()
-     * lub flushAll() dopiero po zakoñczeniu przenoszenia danych do lokalnego
+     * Pobieranie danych odbï¿½dzie siï¿½ synchronicznie, powrï¿½t z funkcji open()
+     * lub flushAll() dopiero po zakoï¿½czeniu przenoszenia danych do lokalnego
      * bufora
      */
     fmSynch,
     /**
-     * Pobieranie danych odbêdzie siê asynchronicznie, powrót z funkcji open()
-     * lub flushAll() zaraz po jej wywo³aniu, getFlushing() pozwala sprawdziæ
+     * Pobieranie danych odbï¿½dzie siï¿½ asynchronicznie, powrï¿½t z funkcji open()
+     * lub flushAll() zaraz po jej wywoï¿½aniu, getFlushing() pozwala sprawdziï¿½
      * czy buforowanie jest w toku
      */
     fmAsynch
@@ -260,11 +261,11 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Definiuje w jaki sposób i czy wogóle maj¹ byæ pobierane po otwarciu
+   * Definiuje w jaki sposï¿½b i czy wogï¿½le majï¿½ byï¿½ pobierane po otwarciu
    * zapytania dane i wstawiane do bufora.
    * 
    * @param flushMode
-   *          Jeœli != FlushMode.fmNone to automatycznie ustawiane jest
+   *          Jeï¿½li != FlushMode.fmNone to automatycznie ustawiane jest
    *          cacheData na true
    * @throws UseDBException
    */
@@ -307,8 +308,8 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Pozwala otworzyæ zapytanie i pobraæ od razu wszystkie rekordy lub pobraæ je
-   * w tle w zale¿noœci od parametru FlushMode
+   * Pozwala otworzyï¿½ zapytanie i pobraï¿½ od razu wszystkie rekordy lub pobraï¿½ je
+   * w tle w zaleï¿½noï¿½ci od parametru FlushMode
    * 
    * @param sqlText
    * @throws Exception
@@ -404,7 +405,7 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
         }
       }
     } catch (Throwable e) {
-      // poni¿ej ustrawiany jest ponownie status OPENING gdy¿ b³¹d mug³ wyst¹piæ w trakcie 
+      // poniï¿½ej ustrawiany jest ponownie status OPENING gdyï¿½ bï¿½ï¿½d mugï¿½ wystï¿½piï¿½ w trakcie 
       // pobierania pierwszych danych
       state = State.OPENING;
       fireQueryListener(Event.ERROR);
@@ -431,9 +432,9 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Sprawdza zapytanie i pozwala uzyskaæ dostêp do meta danych Nie wykonuje
+   * Sprawdza zapytanie i pozwala uzyskaï¿½ dostï¿½p do meta danych Nie wykonuje
    * zapytania, a jedynie przygotowuje do wykonania. Przygotowanie to nie jest
-   * zwi¹zane z otwarciem zapytania.
+   * zwiï¿½zane z otwarciem zapytania.
    * 
    * @throws UseDBException
    * @throws SQLException
@@ -473,7 +474,7 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Zwraca datê i godzinê rozpoczêcia otwarcia zapytania
+   * Zwraca datï¿½ i godzinï¿½ rozpoczï¿½cia otwarcia zapytania
    * 
    * @return
    */
@@ -555,9 +556,9 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Pozwala uzyskac dostêp do pola o podanej nazwie Wywo³uje wyj¹tek jeœli pole
-   * o podanej nazwie nie istnieje Aby sprawdziæ czy podane pole istnieje na
-   * liœcie nale¿y siê pos³u¿yæ getFieldList().findFieldByName();
+   * Pozwala uzyskac dostï¿½p do pola o podanej nazwie Wywoï¿½uje wyjï¿½tek jeï¿½li pole
+   * o podanej nazwie nie istnieje Aby sprawdziï¿½ czy podane pole istnieje na
+   * liï¿½cie naleï¿½y siï¿½ posï¿½uï¿½yï¿½ getFieldList().findFieldByName();
    * 
    * @param name
    * @return
@@ -768,9 +769,9 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
 
   /**
    * <p>
-   * Usuwa bierz¹cy rekord z listy rekordów.
+   * Usuwa bierzï¿½cy rekord z listy rekordï¿½w.
    * <p>
-   * Musi byæ ustawiona w³aœciwoœæ cacheData inaczej nic siê nie stanie.
+   * Musi byï¿½ ustawiona wï¿½aï¿½ciwoï¿½ï¿½ cacheData inaczej nic siï¿½ nie stanie.
    * 
    * @throws UseDBException
    */
@@ -789,9 +790,9 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
 
   /**
    * <p>
-   * Usuwa wybrany rekord z listy rekordów w pamiêci.
+   * Usuwa wybrany rekord z listy rekordï¿½w w pamiï¿½ci.
    * <p>
-   * Musi byæ ustawiona w³aœciwoœæ cacheData inaczej nic siê nie stanie.
+   * Musi byï¿½ ustawiona wï¿½aï¿½ciwoï¿½ï¿½ cacheData inaczej nic siï¿½ nie stanie.
    * <p>
    * <b>Wykonanie tego polecenia nie zmienia danych w bazie danych.</b>
    * 
@@ -824,9 +825,9 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
 
   /**
    * <p>
-   * Dodaje rekord na koñcu listy w pamiêci.
+   * Dodaje rekord na koï¿½cu listy w pamiï¿½ci.
    * <p>
-   * Musi byæ ustawiona w³aœciwoœæ cacheData inaczej nic siê nie stanie.
+   * Musi byï¿½ ustawiona wï¿½aï¿½ciwoï¿½ï¿½ cacheData inaczej nic siï¿½ nie stanie.
    * <p>
    * <b>Wykonanie tego polecenia nie zmienia danych w bazie danych.</b>
    * 
@@ -862,9 +863,9 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
 
   /**
    * <p>
-   * Aktualizuje wybrany rekord w pamiêci.
+   * Aktualizuje wybrany rekord w pamiï¿½ci.
    * <p>
-   * Musi byæ ustawiona w³aœciwoœæ cacheData inaczej nic siê nie stanie.
+   * Musi byï¿½ ustawiona wï¿½aï¿½ciwoï¿½ï¿½ cacheData inaczej nic siï¿½ nie stanie.
    * <p>
    * <b>Wykonanie tego polecenia nie zmienia danych w bazie danych.</b>
    * 
@@ -961,7 +962,7 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Zwraca domyœln¹ klasê kolumny wg typu pola z otwartego query
+   * Zwraca domyï¿½lnï¿½ klasï¿½ kolumny wg typu pola z otwartego query
    * 
    * @param index
    * @return
@@ -1117,12 +1118,12 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
         if ((ro = resultSet.getObject(index)) == null) {
           value.clear();
         } else {
-          // niektóre jdbc zwracaj¹ Date, a w niej datê i godzinê (oracle)
+          // niektï¿½re jdbc zwracajï¿½ Date, a w niej datï¿½ i godzinï¿½ (oracle)
           try {
             value.setDate(resultSet.getTimestamp(index));
           }
           catch (Exception ex) {
-            // obs³uga b³êdu dla tego, ¿e niektóre jdbc (odbc) nie potrafi¹ ponownie pobraæ pola
+            // obsï¿½uga bï¿½ï¿½du dla tego, ï¿½e niektï¿½re jdbc (odbc) nie potrafiï¿½ ponownie pobraï¿½ pola
             if (ro instanceof Date) {
               value.setDate((Date)ro);
             }
@@ -1292,8 +1293,8 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Jeœli nie ma ¿adnego rekordu ta funkcja nie mo¿e byæ wywo³ana Przed
-   * wywo³aniem tej funkcji musi byæ wywo³ana funkcja first()
+   * Jeï¿½li nie ma ï¿½adnego rekordu ta funkcja nie moï¿½e byï¿½ wywoï¿½ana Przed
+   * wywoï¿½aniem tej funkcji musi byï¿½ wywoï¿½ana funkcja first()
    *
    * @throws IOException
    * @throws SQLException
@@ -1343,11 +1344,11 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * <p>Pozwala pobraæ rekord o numerze index. Jeœli nie ma go w buforze to bufor
-   * zostanie uzupe³niony. Funkcji nie nale¿y wywo³ywaæ dla query które nie s¹ buforowane.
+   * <p>Pozwala pobraï¿½ rekord o numerze index. Jeï¿½li nie ma go w buforze to bufor
+   * zostanie uzupeï¿½niony. Funkcji nie naleï¿½y wywoï¿½ywaï¿½ dla query ktï¿½re nie sï¿½ buforowane.
    *
    * @param index
-   * @return rekord lub null jeœli nie ma rekordu o podanym indeksie lub jeœli Query zosta³o wczeœniej zamkniête
+   * @return rekord lub null jeï¿½li nie ma rekordu o podanym indeksie lub jeï¿½li Query zostaï¿½o wczeï¿½niej zamkniï¿½te
    * @throws IOException
    * @throws SQLException
    * @throws VariantException
@@ -1405,7 +1406,7 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Pozwala pobraæ aktualny rekord
+   * Pozwala pobraï¿½ aktualny rekord
    *
    * @return
    * @throws IOException
@@ -1464,8 +1465,8 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   /**
-   * Pozwala wype³niæ bufor wszystkimi rekordami zapytania Aby wype³nianie
-   * zadzia³a³o musi byæ okreœlony FlushMode
+   * Pozwala wypeï¿½niï¿½ bufor wszystkimi rekordami zapytania Aby wypeï¿½nianie
+   * zadziaï¿½aï¿½o musi byï¿½ okreï¿½lony FlushMode
    *
    * @throws SQLException
    * @throws IOException
@@ -1693,7 +1694,7 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
 
   public void sortByColumn(int modelIndex, Order order) throws UseDBException {
-    // jeœli by³o najpierw sortowanie przez zamianê ORDER BY to sortuj wg tej zasady
+    // jeï¿½li byï¿½o najpierw sortowanie przez zamianï¿½ ORDER BY to sortuj wg tej zasady
     if (orygPreparedSqlTextOrderByAction != null && preparedSqlText != null) {
       orderByColumn(modelIndex, order);
     }
@@ -1788,8 +1789,8 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
   }
   
   /**
-   * <p>Flaga oznaczaj¹ca, ¿e close() i open() jest wymuszone przez akcje ORDER BY
-   * <p>Oznacza to, ¿e obiekt QueryTable nie mo¿e wywo³aæ tableHeader.resetOrder()
+   * <p>Flaga oznaczajï¿½ca, ï¿½e close() i open() jest wymuszone przez akcje ORDER BY
+   * <p>Oznacza to, ï¿½e obiekt QueryTable nie moï¿½e wywoï¿½aï¿½ tableHeader.resetOrder()
    * @return
    */
   public boolean isOnOrderByAction() {
@@ -1818,14 +1819,14 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
 
   /**
    * <p>
-   * Pozwala ustawiæ na wyszukanym po keyField rekordzie zgodnie z wartoœci¹.
+   * Pozwala ustawiï¿½ na wyszukanym po keyField rekordzie zgodnie z wartoï¿½ciï¿½.
    * <p>
-   * Aby locate dzia³a³ Query.setCacheData() musi byæ ustawione na true
+   * Aby locate dziaï¿½aï¿½ Query.setCacheData() musi byï¿½ ustawione na true
    * 
    * @param keyField
    * @param value
-   *          Variant, nie mo¿e byæ null
-   * @return zwraca true jeœli (pierwszy) rekord zosta³ znaleziony
+   *          Variant, nie moï¿½e byï¿½ null
+   * @return zwraca true jeï¿½li (pierwszy) rekord zostaï¿½ znaleziony
    * @throws UseDBException
    * @throws VariantException
    * @throws SQLException
@@ -1848,8 +1849,8 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
    * <p>
    * @param keyField
    * @param value
-   * @param caseInsensitive dzia³a jedynie gdy wartoœæ pola jest konwertowalna do ci¹gu znaków String
-   * @param partial dzia³a jedynie dla caseInsensitive = false 
+   * @param caseInsensitive dziaï¿½a jedynie gdy wartoï¿½ï¿½ pola jest konwertowalna do ciï¿½gu znakï¿½w String
+   * @param partial dziaï¿½a jedynie dla caseInsensitive = false 
    * @return
    * @throws UseDBException
    * @throws VariantException
@@ -1921,7 +1922,7 @@ public class Query extends ParametrizedCommand implements Closeable, Cloneable {
 
   /**
    * <p>Ustawienie na true przed otwarciem kursora spowoduje automatyczne zbuforowanie danych
-   * i zamkniêcie obiektu Statement czyli kursora.
+   * i zamkniï¿½cie obiektu Statement czyli kursora.
    * <p>Przydatne przy ustawieniach bazy danych CLOSE_CURSOR_ON_COMMIT.
    * <p>Ustawienie na true automatycznie przestawia cacheData na true oraz flushMode na fmSynch
    * @param closeResultAfterOpen

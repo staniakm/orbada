@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import pl.mpak.util.stream.BufferedOutputStream;
 import pl.mpak.util.variant.Variant;
 import pl.mpak.util.variant.VariantException;
-import sun.security.util.BitArray;
+import java.util.BitSet;
 
 public final class WriteRecord {
 
@@ -21,7 +21,7 @@ public final class WriteRecord {
   }
 
   /**
-   * <p> Tworzy WriteRecord z pustymi polami do wype³nienia 
+   * <p> Tworzy WriteRecord z pustymi polami do wypeï¿½nienia 
    * @param fieldCount
    */
   public WriteRecord(int fieldCount) {
@@ -32,7 +32,7 @@ public final class WriteRecord {
   }
   
   /**
-   * <p> Tworzy obiekt i przepisuje do niego wartoœci z CacheRecord
+   * <p> Tworzy obiekt i przepisuje do niego wartoï¿½ci z CacheRecord
    * @param cr
    * @see CacheRecord
    */
@@ -71,11 +71,15 @@ public final class WriteRecord {
         
      dos.writeShort(fieldCount());
      
-     BitArray ba = new BitArray(fieldCount());
+     BitSet ba = new BitSet(fieldCount());
      for (int i=0; i<fieldCount(); i++) {
        ba.set(i, fields.get(i).isNullValue());
      }
-     dos.write(ba.toByteArray());
+     byte[] baBytes = ba.toByteArray();
+     // Ensure the byte array is large enough to represent all bits
+     byte[] baFull = new byte[(fieldCount() +8 -1) /8];
+     System.arraycopy(baBytes, 0, baFull, 0, Math.min(baBytes.length, baFull.length));
+     dos.write(baFull);
      
      for (int i=0; i<fieldCount(); i++) {
        if (!ba.get(i)) {

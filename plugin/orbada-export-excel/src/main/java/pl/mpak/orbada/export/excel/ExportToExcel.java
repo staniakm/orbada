@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import javax.swing.JTable;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -81,7 +82,7 @@ public class ExportToExcel extends ExportTableActionProvider {
       Row row = s.createRow(0);
       for (int c = 0; c < table.getColumnCount(); c++) {
         Cell cell = row.createCell((short) c);
-        cell.setCellType(Cell.CELL_TYPE_STRING);
+        cell.setCellType(CellType.STRING);
         cell.setCellValue(new String(table.getColumnModel().getColumn(c).getHeaderValue().toString().getBytes(), charset));
       }
       for (int r = 0; r < table.getRowCount(); r++) {
@@ -97,11 +98,11 @@ public class ExportToExcel extends ExportTableActionProvider {
           }
           if (v.isNullValue()) {
             Cell cell = trow.createCell((short) c);
-            cell.setCellType(Cell.CELL_TYPE_STRING);
+            cell.setCellType(CellType.STRING);
             cell.setCellValue(new String(nullDataValue.getBytes(), charset));
           } else {
             Cell cell = trow.createCell((short) c);
-            cell.setCellType(Cell.CELL_TYPE_STRING);
+            cell.setCellType(CellType.STRING);
             cell.setCellValue(new String(v.toString().getBytes(), charset));
           }
         }

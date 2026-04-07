@@ -22,7 +22,7 @@ public class TimerQueue extends Thread {
       this.notify();
     }
     while (stopExecute) {
-      yield();
+      Thread.yield();
     }
     synchronized(timerArray) {
       while (timerArray.size() > 0) {

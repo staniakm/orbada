@@ -11,15 +11,14 @@ import java.io.Serializable;
 import javax.swing.AbstractButton;
 
 import pl.mpak.util.StringUtil;
-import sun.swing.SwingUtilities2;
 
 /**
- * @author Andrzej Ka³u¿a
+ * @author Andrzej Kaï¿½uï¿½a
  * 
- * Layout p³ywaj¹cych komponentów, które na nim le¿¹
- * Dzia³a w ten sposób, ¿e dobiera na podstawie szerokoœci tekstu i obrazka maksymalny
- * rozmiar komponentu. Na tej podstawie wylicza maksymaln¹ szerokoœæ komponentu
- * nadrzêdnego i jego wysokoœæ. Nastêpnie uk³ada je na nim.
+ * Layout pï¿½ywajï¿½cych komponentï¿½w, ktï¿½re na nim leï¿½ï¿½
+ * Dziaï¿½a w ten sposï¿½b, ï¿½e dobiera na podstawie szerokoï¿½ci tekstu i obrazka maksymalny
+ * rozmiar komponentu. Na tej podstawie wylicza maksymalnï¿½ szerokoï¿½ï¿½ komponentu
+ * nadrzï¿½dnego i jego wysokoï¿½ï¿½. Nastï¿½pnie ukï¿½ada je na nim.
  *
  */
 public class ButtonFlowLayout implements Serializable, LayoutManager2 {
@@ -82,7 +81,7 @@ public class ButtonFlowLayout implements Serializable, LayoutManager2 {
           int theight;
   
           if (c instanceof AbstractButton) {
-            twidth = SwingUtilities2.stringWidth(null, fm, StringUtil.nvl(((AbstractButton)c).getText(), "")) +4;
+            twidth = fm.stringWidth(StringUtil.nvl(((AbstractButton)c).getText(), "")) +4;
             if (((AbstractButton)c).getIcon() != null) {
               twidth += ((AbstractButton)c).getIcon().getIconWidth() +4;
             }

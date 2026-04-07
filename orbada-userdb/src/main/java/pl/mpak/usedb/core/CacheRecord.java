@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import pl.mpak.usedb.UseDBException;
 import pl.mpak.util.variant.VariantException;
-import sun.security.util.BitArray;
+import java.util.BitSet;
 
 public final class CacheRecord {
   private ArrayList<CacheField> fields = new ArrayList<CacheField>();
@@ -51,7 +51,7 @@ public final class CacheRecord {
   }
   
   /**
-   * <p> Zatwierdza zmiany dokonane w pamiêci - nie w bazie danych
+   * <p> Zatwierdza zmiany dokonane w pamiï¿½ci - nie w bazie danych
    * @throws IOException 
    * @throws VariantException 
    */
@@ -64,7 +64,7 @@ public final class CacheRecord {
   }
   
   /**
-   * <p> Anuluje zmiany dokonane w pamiêci - nie w bazie danych
+   * <p> Anuluje zmiany dokonane w pamiï¿½ci - nie w bazie danych
    */
   public void cancelUpdates() {
     for (int i=0; i<fields.size(); i++) {
@@ -107,7 +107,7 @@ public final class CacheRecord {
       int count = dis.readShort();
       byte[] bba = new byte[(count +8 -1) /8];
       dis.read(bba);
-      BitArray ba = new BitArray(count, bba);
+      BitSet ba = BitSet.valueOf(bba);
       for (int i=0; i<count; i++) {
         CacheField f = add();
         if (!ba.get(i)) {
