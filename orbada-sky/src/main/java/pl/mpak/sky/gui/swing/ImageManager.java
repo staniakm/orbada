@@ -8,9 +8,9 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 /**
- * Klasa ³aduj¹ca (o ile to konieczne) obrazki z zasobów programu
+ * Klasa ï¿½adujï¿½ca (o ile to konieczne) obrazki z zasobï¿½w programu
  * 
- * @author Andrzej Ka³u¿a
+ * @author Andrzej Kaï¿½uï¿½a
  *
  */
 public final class ImageManager {
@@ -19,15 +19,15 @@ public final class ImageManager {
   public static String iconPath = "/pl/mpak/res/icons";
   
   /**
-   * Zwraca obrazek z listy lub jeœli jeszcze nie jest za³adowany ³aduje go
+   * Zwraca obrazek z listy lub jeï¿½li jeszcze nie jest zaï¿½adowany ï¿½aduje go
    * 
    * @param resName nazwa obrazka do pobrania
    * @return pobrany obrazek
    */
   public final static ImageIcon getImage(String resName) {
-    return getImage(resName, Toolkit.getDefaultToolkit().getClass());
+    return getImage(resName, (Class<?>) null);
   }
-  
+
   private final static ImageIcon internalGetImage(String resName, Class<?> rootClass) {
     try {
       URL url;
@@ -35,8 +35,16 @@ public final class ImageManager {
       if (file.exists()) {
         url = file.toURI().toURL();
       }
-      else {
+      else if (rootClass != null) {
         url = rootClass.getResource(resName);
+      }
+      else {
+        // Use context classloader so custom classloaders (e.g. StartupClassLoader)
+        // are consulted â€” Class.getResource() on a platform-loaded class (WToolkit)
+        // cannot see application resources on Java 9+.
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        String stripped = resName.startsWith("/") ? resName.substring(1) : resName;
+        url = cl.getResource(stripped);
       }
       return new ImageIcon(url);
     }

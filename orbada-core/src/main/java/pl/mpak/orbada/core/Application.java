@@ -187,9 +187,9 @@ public class Application implements IApplication, WindowListener {
       orbadaSplashLogo = orbadaSplashLogo.getScaledInstance(46, 46, Image.SCALE_DEFAULT);
     }
     if (fontsImage == null) {
-      fontsImage = G2Util.createImage(getClass().getResource("/res/fonts.png"));
+      fontsImage = G2Util.createImage(Application.class.getResource("/res/fonts.png"));
       fonts = new RasterFont(fontsImage, fontChars, -3);
-      fontsSmallImage = G2Util.createImage(getClass().getResource("/res/fonts-sm.png"));
+      fontsSmallImage = G2Util.createImage(Application.class.getResource("/res/fonts-sm.png"));
       fontsSmall = new RasterFont(fontsSmallImage, fontChars, -2);
     }
   }

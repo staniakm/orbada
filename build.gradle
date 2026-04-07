@@ -106,16 +106,3 @@ tasks.register('createDistribution') {
 tasks.named('assemble') { finalizedBy 'createDistribution' }
 tasks.named('build') { finalizedBy 'createDistribution' }
 
-// Java 17 strong encapsulation: add --add-opens flags needed by old Swing LAFs
-// (nimrod-laf, tinylaf, jgoodies) and BeanShell at runtime.
-// Flags below were determined by running the application and observing
-// InaccessibleObjectException stack traces.  Extend this list as new
-// violations are found.
-tasks.withType(JavaExec).configureEach {
-    jvmArgs(
-        '--add-opens=java.desktop/sun.awt=ALL-UNNAMED',
-        '--add-opens=java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED',
-        '--add-opens=java.base/java.lang=ALL-UNNAMED',
-        '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED'
-    )
-}
