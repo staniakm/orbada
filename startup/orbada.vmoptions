@@ -1,2 +1,12 @@
-# JVM flags required for Java 17 compatibility
-# Add --add-opens flags here as discovered at runtime
+# JVM flags required for Java 17 compatibility with old Swing LAFs and BeanShell.
+# This file is NOT auto-consumed — flags must be added manually to your launch command:
+#
+#   java <flags-from-here> -Djava.system.class.loader=pl.mpak.startup.StartupClassLoader -jar startup.jar
+#
+# If you encounter InaccessibleObjectException at runtime, add the required flag here
+# and to your launch script/shortcut. Common candidates for old Swing LAFs:
+#
+#   --add-opens=java.desktop/sun.awt=ALL-UNNAMED
+#   --add-opens=java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED
+#   --add-opens=java.base/java.lang=ALL-UNNAMED
+#   --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
