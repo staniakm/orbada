@@ -66,6 +66,7 @@ dependencies {
 }
 
 tasks.register('createDistribution') {
+    onlyIf { jar.archiveFile.get().asFile.exists() }
     dependsOn(':startup:jar', jar, ':orbada-res:processResources', processResources)
 
     doLast {
@@ -85,9 +86,9 @@ tasks.register('createDistribution') {
         def mainJarFile = jar.archiveFile.get().asFile
         def zipFile = mainJarFile.path.replace('.jar', '.zip')
 
-        ant.mkdir(dir: starterJarFile.parent)
+        ant.mkdir(dir: starterJarFile.parentFile.absolutePath)
         ant.mkdir(dir: sourceSets.main.output.resourcesDir.absolutePath)
-        ant.mkdir(dir: mainJarFile.parent)
+        ant.mkdir(dir: mainJarFile.parentFile.absolutePath)
 
         ant.zip(destfile: zipFile) {
             zipfileset(file: starterJarFile.absolutePath, fullpath: "${starterJarTask.archiveBaseName.get()}.jar")
