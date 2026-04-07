@@ -1,5 +1,3 @@
-apply plugin: "maven"
-
 group = "orbada"
 version = "2.0.0"
 
@@ -67,57 +65,40 @@ dependencies {
     api project(':orbada-waitdlg')
 }
 
-gradle.buildFinished {
-    print('>>>> end')
+tasks.register('createDistribution') {
+    dependsOn(':startup:jar', jar, ':orbada-res:processResources', processResources)
 
-    if (!(gradle.taskGraph.hasTask(':build') || gradle.taskGraph.hasTask(':assemble') || gradle.taskGraph.hasTask(':jar'))) {
-        return
-    }
+    doLast {
+        def packagedDependencies = configurations.findByName('runtimeClasspath') ?: configurations.findByName('compileClasspath')
 
-    def packagedDependencies = configurations.findByName('runtimeClasspath') ?: configurations.findByName('compileClasspath')
-
-
-    ant.copy(
-        todir: sourceSets.main.output.resourcesDir,
-        failonerror: false
-    ){
-        fileset(dir: project(":orbada-res").sourceSets.main.output.resourcesDir){
-            exclude("name": "**/res/**")
+        ant.copy(
+            todir: sourceSets.main.output.resourcesDir,
+            failonerror: false
+        ) {
+            fileset(dir: project(':orbada-res').sourceSets.main.output.resourcesDir) {
+                exclude(name: '**/res/**')
+            }
         }
-    }
 
-    /**
-     * the distribution zip file
-     */
-    def starterJar = project(":startup").jar;
+        def starterJarTask = project(':startup').tasks.named('jar').get()
+        def starterJarFile = starterJarTask.archiveFile.get().asFile
+        def mainJarFile = jar.archiveFile.get().asFile
+        def zipFile = mainJarFile.path.replace('.jar', '.zip')
 
-    /**
-     * creating paths that not exists (fix to intellij)
-     */
-    ant.mkdir(dir: "${starterJar.archivePath}/..")
-    ant.mkdir(dir: sourceSets.main.output.resourcesDir)
-    ant.mkdir(dir: "${jar.archivePath}/..")
+        ant.mkdir(dir: starterJarFile.parent)
+        ant.mkdir(dir: sourceSets.main.output.resourcesDir.absolutePath)
+        ant.mkdir(dir: mainJarFile.parent)
 
-
-    ant.zip(destfile: "${jar.archivePath}".replace(".jar", ".zip")){
-
-        // the starter jar
-        zipfileset("file": starterJar.archivePath, fullpath: "${starterJar.baseName}.jar")
-
-        zipfileset("dir": sourceSets.main.output.resourcesDir)
-//        subprojects.forEach({ it
-//            // adding resources
-//            if(it.sourceSets.main.output.resourcesDir.exists() && !it.path.startsWith(":plugin")){
-//                println("processing ${it} resources")
-//                zipfileset("dir": it.sourceSets.main.output.resourcesDir)
-//            }
-//        })
-
-        // adding dependencies
-        packagedDependencies.collect {
-            zipfileset("file": it.absolutePath, fullpath: "lib/${it.name}")
+        ant.zip(destfile: zipFile) {
+            zipfileset(file: starterJarFile.absolutePath, fullpath: "${starterJarTask.archiveBaseName.get()}.jar")
+            zipfileset(dir: sourceSets.main.output.resourcesDir.absolutePath)
+            packagedDependencies.collect {
+                zipfileset(file: it.absolutePath, fullpath: "lib/${it.name}")
+            }
         }
+        println('>>>> end')
     }
-
-
 }
+
+tasks.named('assemble') { finalizedBy 'createDistribution' }
+tasks.named('build') { finalizedBy 'createDistribution' }
