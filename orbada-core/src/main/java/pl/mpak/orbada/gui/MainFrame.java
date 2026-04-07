@@ -23,7 +23,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import json.JSONObject;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.mpak.orbada.Consts;
 import pl.mpak.orbada.OrbadaCancelCloseException;
 import pl.mpak.orbada.core.Application;
@@ -223,7 +224,7 @@ public class MainFrame extends javax.swing.JFrame implements IProcessMessagable 
                     }
                   }
                 } catch (Exception ex) {
-                  Logger.getLogger("error-logger").error("Updates", ex); //NOI18N
+                  LoggerFactory.getLogger("error-logger").error("Updates", ex); //NOI18N
                 }
               } catch (Exception ex) {
               }
@@ -2256,27 +2257,21 @@ private void cmDriversActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
   }//GEN-LAST:event_menuProgramMenuSelected
 
   private void cmOrbadaLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmOrbadaLogFileActionPerformed
-    if (getToolsPerspective() == null) {
-      openPerspectiveFor(null, null);
-    }
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-        // log4j2 migration: file appender discovery via log4j 1.x API is no longer supported
-      }
-    });
+    javax.swing.JOptionPane.showMessageDialog(
+        this,
+        "Log file viewer is not available after Java 17 migration.\nCheck the application working directory for log files.",
+        "Not available",
+        javax.swing.JOptionPane.INFORMATION_MESSAGE
+    );
 }//GEN-LAST:event_cmOrbadaLogFileActionPerformed
 
   private void cmOrbadaLogErrorFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmOrbadaLogErrorFileActionPerformed
-    if (getToolsPerspective() == null) {
-      openPerspectiveFor(null, null);
-    }
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-        // log4j2 migration: file appender discovery via log4j 1.x API is no longer supported
-      }
-    });
+    javax.swing.JOptionPane.showMessageDialog(
+        this,
+        "Log file viewer is not available after Java 17 migration.\nCheck the application working directory for log files.",
+        "Not available",
+        javax.swing.JOptionPane.INFORMATION_MESSAGE
+    );
 }//GEN-LAST:event_cmOrbadaLogErrorFileActionPerformed
 
   private void cmSelectNewPerspectiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmSelectNewPerspectiveActionPerformed

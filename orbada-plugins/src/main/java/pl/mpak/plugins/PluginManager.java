@@ -6,7 +6,8 @@ import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.mpak.plugins.spi.IPlugin;
 import pl.mpak.plugins.spi.IPluginProvider;
 import pl.mpak.util.Assert;
@@ -25,7 +26,7 @@ public class PluginManager {
   private ArrayList<PluginFound> foundList = new ArrayList<PluginFound>();
   private LinkedList<Class<? extends IPluginProvider>> providerList = new LinkedList<Class<? extends IPluginProvider>>();
   private HashMap<Class<? extends IPluginProvider>, IPluginProvider> sharedProviderList = new HashMap<Class<? extends IPluginProvider>, IPluginProvider>();
-  private Logger logger = Logger.getLogger(PluginManager.class);
+  private Logger logger = LoggerFactory.getLogger(PluginManager.class);
   
   public enum PluginManagerEvent {
     BEGIN_PROCESS,
@@ -216,7 +217,7 @@ public class PluginManager {
   }
   
   /**
-   * <p>£aduje wszystkie odnalezione wtyczki
+   * <p>ï¿½aduje wszystkie odnalezione wtyczki
    */
   public void loadPlugins() {
     if (logger != null) {
@@ -290,11 +291,11 @@ public class PluginManager {
           list.add(getPlugin(i).getPlugin());
         }
         
-        // sprawdzamy potrzebne wtyczki i zale¿noœci
+        // sprawdzamy potrzebne wtyczki i zaleï¿½noï¿½ci
         for (int i=0; i<getCount(); i++) {
           getPlugin(i).requires(list);
         }
-        // sortujemy tak aby te zale¿ne znalaz³y siê na koñcu
+        // sortujemy tak aby te zaleï¿½ne znalazï¿½y siï¿½ na koï¿½cu
         Collections.sort(pluginList, new Comparator<Plugin>() {
           @Override
           public int compare(Plugin o1, Plugin o2) {
@@ -333,7 +334,7 @@ public class PluginManager {
   }
   
   /**
-   * <p>Pozwala dodaæ us³ugodawcê poza mechanizmem ³adowania automatycznego
+   * <p>Pozwala dodaï¿½ usï¿½ugodawcï¿½ poza mechanizmem ï¿½adowania automatycznego
    * @param providerClass
    */
   public void addProvider(Class<? extends IPluginProvider> providerClass) {
@@ -387,11 +388,11 @@ public class PluginManager {
     return foundList;
   }
 
-  public org.apache.log4j.Logger getLogger() {
+  public Logger getLogger() {
     return logger;
   }
 
-  public void setLogger(org.apache.log4j.Logger logger) {
+  public void setLogger(Logger logger) {
     this.logger = logger;
   }
 

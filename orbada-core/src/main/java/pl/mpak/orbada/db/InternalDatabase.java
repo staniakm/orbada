@@ -1,6 +1,5 @@
 package pl.mpak.orbada.db;
 
-import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.mpak.orbada.Consts;
 import pl.mpak.orbada.ErrorMessages;
@@ -53,7 +52,7 @@ public class InternalDatabase extends OrbadaDatabase {
       jdbcSource = Resolvers.expand("$(user.dir)/jdbc/hsqldb-internal/hsqldb.jar");
     }
 
-    Logger.getLogger("orbada").debug(jdbcSource +":" +className +":" +url +":" +driver +":" +user +":" +password);
+    LoggerFactory.getLogger("orbada").debug(jdbcSource +":" +className +":" +url +":" +driver +":" +user +":" +password);
     try {
       if (Application.get().getProperty("internal.db.user") == null ||
           Application.get().getProperty("internal.db.password") == null) {
@@ -66,7 +65,7 @@ public class InternalDatabase extends OrbadaDatabase {
       }
 
       Application.renderSplashText(String.format(stringManager.getString("InternalDatabase-connect-to-database-3dot"), new Object[] {driver}));
-      Logger.getLogger("orbada").debug("Connecting to " + driver + " database on " + url);
+      LoggerFactory.getLogger("orbada").debug("Connecting to " + driver + " database on " + url);
       try {
         orbadaDatabase = DatabaseManager.createDatabase(InternalDatabase.class, DriverClassLoaderManager.getDriver(jdbcSource, jdbcExtraLibrary, className), url, user, password);
       } catch (Exception ex) {
@@ -90,7 +89,7 @@ public class InternalDatabase extends OrbadaDatabase {
       } catch (Exception ex) {
         ex.printStackTrace();
       }
-      Logger.getLogger("orbada").info("Connecting to " + driver + " database: OK");
+      LoggerFactory.getLogger("orbada").info("Connecting to " + driver + " database: OK");
     } catch (Exception ex) {
       Application.get().setSafeMode(true);
       MessageBox.show(
@@ -98,7 +97,7 @@ public class InternalDatabase extends OrbadaDatabase {
         String.format(
           stringManager.getString("InternalDatabase-check-connect-parameters"),
           new Object[] {Application.get().getConfigFile(), url, StringUtil.toString(StringUtil.wordWrap(ex.getMessage(), 150), null)}));
-      Logger.getLogger("orbada").error("Connecting to " + driver + " database: error", ex);
+      LoggerFactory.getLogger("orbada").error("Connecting to " + driver + " database: error", ex);
       //System.exit(-1);
     }
   }
@@ -531,7 +530,7 @@ public class InternalDatabase extends OrbadaDatabase {
             if (query.fieldByName("cdrv").getInteger() == 0) {
               orbadaDatabase.executeCommand("INSERT INTO DRIVERS VALUES('20071001000000-0000000000000013-00000002',NULL,'MySQL Server','./jdbc/mysql-connector-java-5.1.7-bin.jar','MySQL','com.mysql.jdbc.Driver','jdbc:mysql://<HOST>/<DB>')");
             }
-            Logger.getLogger("orbada").info("IDE:UPDATE: Driver for MySQL added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Driver for MySQL added");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }
@@ -540,7 +539,7 @@ public class InternalDatabase extends OrbadaDatabase {
           try {
             orbadaDatabase.executeCommand("alter table schemas add sch_public_name varchar(200)");
             orbadaDatabase.executeCommand("update schemas set sch_public_name = sch_name");
-            Logger.getLogger("orbada").info("IDE:UPDATE: Column sch_public_name on schemas added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Column sch_public_name on schemas added");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }
@@ -549,7 +548,7 @@ public class InternalDatabase extends OrbadaDatabase {
           try {
             orbadaDatabase.executeCommand("INSERT INTO DRIVERS VALUES('20071001000000-0000000000000014-00000002',NULL,'HSQLDB Embeded 2.1','./jdbc/hsqldb-2.1/hsqldb.jar','HSQLDB','org.hsqldb.jdbc.JDBCDriver','jdbc:hsqldb:file:{database};create=true')");
             orbadaDatabase.executeCommand("INSERT INTO DRIVERS VALUES('20071001000000-0000000000000015-00000002',NULL,'HSQLDB Server 2.1','./jdbc/hsqldb-2.1/hsqldb.jar','HSQLDB','org.hsqldb.jdbc.JDBCDriver','jdbc:hsqldb:hsql://{host}[:{port}]/{database}')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: new HSQLDB 2.1 driver was added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: new HSQLDB 2.1 driver was added");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }
@@ -563,7 +562,7 @@ public class InternalDatabase extends OrbadaDatabase {
             orbadaDatabase.executeCommand("insert into driver_type_specs (dts_id, dts_dtp_id, dts_name, dts_class, dts_url_template) values ('20071001000000-0000000000000066-00000010', '20071001000000-0000000000000001-00000001', 'In-Memory', 'org.hsqldb.jdbc.JDBCDriver', 'jdbc:hsqldb:.')");
             orbadaDatabase.executeCommand("insert into driver_type_specs (dts_id, dts_dtp_id, dts_name, dts_class, dts_url_template) values ('20071001000000-0000000000000067-00000010', '20071001000000-0000000000000001-00000001', 'Webserver', 'org.hsqldb.jdbc.JDBCDriver', 'jdbc:hsqldb:http://{host}[:{port}]')");
             orbadaDatabase.executeCommand("insert into driver_type_specs (dts_id, dts_dtp_id, dts_name, dts_class, dts_url_template) values ('20071001000000-0000000000000068-00000010', '20071001000000-0000000000000001-00000001', 'Webserver with TLS', 'org.hsqldb.jdbc.JDBCDriver', 'jdbc:hsqldb:http://{host}[:{port}]')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: new HSQLDB 2.1 class url was added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: new HSQLDB 2.1 class url was added");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }
@@ -571,17 +570,17 @@ public class InternalDatabase extends OrbadaDatabase {
         if ((lastVersionID == null || lastVersionID.getBuild() < 138) && Application.get().isUserAdmin()) {
           try {
             orbadaDatabase.executeCommand("INSERT INTO DRIVER_TYPES VALUES('20071001000000-0000000000000025-00000001','CSV')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: Driver type for CSV added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Driver type for CSV added");
             orbadaDatabase.executeCommand(
               "insert into driver_type_specs (dts_id, dts_dtp_id, dts_name, dts_class, dts_url_template) " +
               "values ('20071001000000-0000000000000069-00000010', '20071001000000-0000000000000025-00000001', 'CSV JDBC', 'org.relique.jdbc.csv.CsvDriver', 'jdbc:relique:csv:{database}')");
             orbadaDatabase.executeCommand("INSERT INTO DRIVERS VALUES('20071001000000-0000000000000016-00000002',NULL,'CSV JDBC','./jdbc/csvjdbc.jar','CSV','org.relique.jdbc.csv.CsvDriver','jdbc:relique:csv:{database}')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: Driver CSV JDBC added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Driver CSV JDBC added");
             orbadaDatabase.executeCommand(
               "insert into driver_type_specs (dts_id, dts_dtp_id, dts_name, dts_class, dts_url_template) " +
               "values ('20071001000000-0000000000000070-00000010', '20071001000000-0000000000000025-00000001', 'StelsCSV JDBC Driver', 'jstels.jdbc.csv.CsvDriver2', 'jdbc:jstels:csv:{database}')");
             orbadaDatabase.executeCommand("INSERT INTO DRIVERS VALUES('20071001000000-0000000000000017-00000002',NULL,'StelsCSV JDBC Driver','./jdbc/csvdriver.jar','CSV','jstels.jdbc.csv.CsvDriver2','jdbc:jstels:csv:{database}')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: StelsCSV JDBC Driver added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: StelsCSV JDBC Driver added");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }
@@ -589,7 +588,7 @@ public class InternalDatabase extends OrbadaDatabase {
         if ((lastVersionID == null || lastVersionID.getBuild() < 141) && Application.get().isUserAdmin()) {
           try {
             orbadaDatabase.executeCommand("alter table drivers add drv_extra_library varchar(4000)");
-            Logger.getLogger("orbada").info("IDE:UPDATE: Table drivers alteres");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Table drivers alteres");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }
@@ -599,11 +598,11 @@ public class InternalDatabase extends OrbadaDatabase {
             orbadaDatabase.executeCommand(
               "INSERT INTO DRIVERS (DRV_ID, DRV_USR_ID, DRV_NAME, DRV_LIBRARY_SOURCE, DRV_TYPE_NAME, DRV_CLASS_NAME, DRV_URL_TEMPLATE) " +
               "VALUES('20071001000000-0000000000000018-00000002',NULL,'Oracle JDBC/ODBC',null,'Oracle','sun.jdbc.odbc.JdbcOdbcDriver','jdbc:odbc:{database}')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: Driver Oracle JDBC/ODBC added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Driver Oracle JDBC/ODBC added");
             orbadaDatabase.executeCommand(
               "INSERT INTO DRIVERS (DRV_ID, DRV_USR_ID, DRV_NAME, DRV_LIBRARY_SOURCE, DRV_TYPE_NAME, DRV_CLASS_NAME, DRV_URL_TEMPLATE) " +
               "VALUES('20071001000000-0000000000000019-00000002',NULL,'Firebird JDBC/ODBC',null,'Firebird','sun.jdbc.odbc.JdbcOdbcDriver','jdbc:odbc:{database}')");
-            Logger.getLogger("orbada").info("IDE:UPDATE: Driver Firebird JDBC/ODBC added");
+            LoggerFactory.getLogger("orbada").info("IDE:UPDATE: Driver Firebird JDBC/ODBC added");
           } catch (Exception e) {
             ExceptionUtil.processException(e);
           }

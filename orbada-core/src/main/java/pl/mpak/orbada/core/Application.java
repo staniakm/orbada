@@ -25,7 +25,8 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.mpak.g2.G2Util;
 import pl.mpak.g2.RasterFont;
 import pl.mpak.orbada.Consts;
@@ -306,7 +307,7 @@ public class Application implements IApplication, WindowListener {
       }
       String orbadaLafClassName = localProperties.getProperty(Consts.lookAndFeelLocalClass, getProperty(Consts.lookAndFeelLocalClass));
       if (!StringUtil.isEmpty(orbadaLafClassName)) {
-        Logger.getLogger("orbada").info("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" property: " +orbadaLafClassName);
+        LoggerFactory.getLogger("orbada").info("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" property: " +orbadaLafClassName);
         Class lafClass = Class.forName(orbadaLafClassName);
         Object lafObject = lafClass.newInstance();
         if (lafObject instanceof ILookAndFeelStarter) {
@@ -314,7 +315,7 @@ public class Application implements IApplication, WindowListener {
           ((ILookAndFeelStarter)lafObject).start();
         }
         else {
-          Logger.getLogger("orbada").error("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" is not implementation of ILookAndFeelStarter");
+          LoggerFactory.getLogger("orbada").error("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" is not implementation of ILookAndFeelStarter");
           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
       }
@@ -323,15 +324,15 @@ public class Application implements IApplication, WindowListener {
         if (className != null) {
           if (!"".equals(className.trim())) {
             UIManager.setLookAndFeel(className);
-            Logger.getLogger("orbada").info("LAF from \"laf.class\" property: " +className);
+            LoggerFactory.getLogger("orbada").info("LAF from \"laf.class\" property: " +className);
           }
           else {
-            Logger.getLogger("orbada").info("LAF from \"laf.class\" property: none");
+            LoggerFactory.getLogger("orbada").info("LAF from \"laf.class\" property: none");
           }
         } else {
           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
   //        UIManager.put("Table.selectionBackground", new Color(140, 165, 200));
-          Logger.getLogger("orbada").info("LAF Orbada default: " +UIManager.getSystemLookAndFeelClassName());
+          LoggerFactory.getLogger("orbada").info("LAF Orbada default: " +UIManager.getSystemLookAndFeelClassName());
         }
       }
     } catch (Throwable ex) {
@@ -373,13 +374,7 @@ public class Application implements IApplication, WindowListener {
   }
 
   private void initLogger() {
-    String log4jFile = getLogFile();
-    File file = new File(log4jFile);
-    if (!file.exists()) {
-      copyFile("/res/log4j.xml", file);
-    }
-    System.out.println("Using logger config file: " +file);
-    logger = Logger.getLogger("orbada");
+    logger = LoggerFactory.getLogger("orbada");
     logger.debug("Orbada starting...");
   }
 
@@ -405,14 +400,14 @@ public class Application implements IApplication, WindowListener {
         if (event.getSource() instanceof OrbadaCancelCloseException) {
           return;
         }
-        Logger.getLogger("error-logger").error("ExceptionUtil", (Throwable)event.getSource());
+        LoggerFactory.getLogger("error-logger").error("ExceptionUtil", (Throwable)event.getSource());
         ((Throwable)event.getSource()).printStackTrace();
       }
     });
   }
 
   private void loginUser() {
-    Logger.getLogger("orbada").info("Login Orbada user...");
+    LoggerFactory.getLogger("orbada").info("Login Orbada user...");
     renderSplashText(stringManager.getString("Application-login-user-3dot"));
     if (InternalDatabase.get() == null) {
       user = new User(InternalDatabase.get());
@@ -483,7 +478,7 @@ public class Application implements IApplication, WindowListener {
       }
       Resolvers.register(new OrbadaUserIdResolver());
       Resolvers.register(new OrbadaUserNameResolver());
-      Logger.getLogger("orbada").info(String.format("Orbada user \"%s\" loged", new Object[] {user.getUserName()}));
+      LoggerFactory.getLogger("orbada").info(String.format("Orbada user \"%s\" loged", new Object[] {user.getUserName()}));
     }
     catch (Exception ex) {
       ExceptionUtil.processException(ex);
@@ -842,7 +837,7 @@ public class Application implements IApplication, WindowListener {
   }
 
   public void shutDown() {
-    Logger.getLogger("orbada").info("Orbada shutdown in progress...");
+    LoggerFactory.getLogger("orbada").info("Orbada shutdown in progress...");
     getSettings().store();
     doneSession();
     try {
@@ -850,7 +845,7 @@ public class Application implements IApplication, WindowListener {
     } catch (IOException ex) {
       ExceptionUtil.processException(ex);
     }
-    Logger.getLogger("orbada").info("Orbada shutdown Ok");
+    LoggerFactory.getLogger("orbada").info("Orbada shutdown Ok");
   }
 
   @Override

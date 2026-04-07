@@ -106,7 +106,7 @@ public final class CacheRecord {
     try {
       int count = dis.readShort();
       byte[] bba = new byte[(count +8 -1) /8];
-      dis.read(bba);
+      dis.readFully(bba);
       // NOTE: java.util.BitSet uses little-endian bit ordering, opposite of the old
       // sun.security.util.BitArray (big-endian). New write/read is self-consistent,
       // but any cache files written before this Java 17 migration are incompatible

@@ -9,7 +9,7 @@
 
 package pl.mpak.orbada.core;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import pl.mpak.orbada.db.InternalDatabase;
 import pl.mpak.orbada.plugins.OrbadaPlugin;
 import pl.mpak.orbada.plugins.providers.abs.IOrbadaPluginProvider;

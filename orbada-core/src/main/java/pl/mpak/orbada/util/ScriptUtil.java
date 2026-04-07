@@ -10,7 +10,8 @@ import java.io.InputStream;
 
 import pl.mpak.orbada.core.Application;
 import pl.mpak.orbada.db.InternalDatabase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.mpak.usedb.script.SimpleSQLScript;
 import pl.mpak.util.ExceptionUtil;
 import pl.mpak.util.StreamUtil;
@@ -36,7 +37,7 @@ public class ScriptUtil {
     sqlScript = StringUtil.replaceString(sqlScript, "$(blob)", Application.get().getProperty("data.type.blob", "BLOB"));
     SimpleSQLScript script = new SimpleSQLScript(InternalDatabase.get());
     if (!script.executeScript(sqlScript)) {
-      Logger.getLogger("error-logger").error(script.getErrors()); 
+      LoggerFactory.getLogger("error-logger").error(script.getErrors());
       return false;
     }
     return true;
