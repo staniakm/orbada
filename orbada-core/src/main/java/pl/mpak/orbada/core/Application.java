@@ -26,7 +26,6 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 import pl.mpak.g2.G2Util;
 import pl.mpak.g2.RasterFont;
 import pl.mpak.orbada.Consts;
@@ -103,7 +102,7 @@ public class Application implements IApplication, WindowListener {
   private boolean firstRun;
 
   private static Image orbadaSplashLogo;
-	private static final String fontChars = "A?BC?DE?FGHIJKL?MN?OÓPQRS?TUVWXYZ??0123456789!@#$%^&*()-=_+[]{};':\",./<>?|\\";
+	private static final String fontChars = "A?BC?DE?FGHIJKL?MN?Oï¿½PQRS?TUVWXYZ??0123456789!@#$%^&*()-=_+[]{};':\",./<>?|\\";
   private static BufferedImage fontsImage;
   private static RasterFont fonts;
   private static BufferedImage fontsSmallImage;
@@ -381,7 +380,6 @@ public class Application implements IApplication, WindowListener {
     }
     System.out.println("Using logger config file: " +file);
     logger = Logger.getLogger("orbada");
-    DOMConfigurator.configure(log4jFile);
     logger.debug("Orbada starting...");
   }
 

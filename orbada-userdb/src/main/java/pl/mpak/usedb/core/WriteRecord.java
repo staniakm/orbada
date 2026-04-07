@@ -76,7 +76,8 @@ public final class WriteRecord {
        ba.set(i, fields.get(i).isNullValue());
      }
      byte[] baBytes = ba.toByteArray();
-     // Ensure the byte array is large enough to represent all bits
+     // BitSet.toByteArray() omits trailing zero bytes when high-index bits are clear.
+     // CacheRecord.read() always reads exactly ceil(fieldCount/8) bytes, so pad to that size.
      byte[] baFull = new byte[(fieldCount() +8 -1) /8];
      System.arraycopy(baBytes, 0, baFull, 0, Math.min(baBytes.length, baFull.length));
      dos.write(baFull);

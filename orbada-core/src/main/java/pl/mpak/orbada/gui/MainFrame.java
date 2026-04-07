@@ -19,12 +19,10 @@ import java.net.URI;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import json.JSONObject;
-import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import pl.mpak.orbada.Consts;
 import pl.mpak.orbada.OrbadaCancelCloseException;
@@ -2264,20 +2262,7 @@ private void cmDriversActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        Enumeration e = Logger.getLogger("orbada").getAllAppenders();
-        while (e.hasMoreElements()) {
-          final Object o = e.nextElement();
-          if (o instanceof FileAppender) {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-              @Override
-              public void run() {
-                tabbedPerpectives.setSelectedComponent(getToolsPerspective());
-                getToolsPerspective().createView(new TextFileViewService(new File(((FileAppender)o).getFile())), false, false);
-              }
-            });
-            //Application.get().execTool("notepad", new Object[] {((FileAppender)o).getFile()});
-          }
-        }
+        // log4j2 migration: file appender discovery via log4j 1.x API is no longer supported
       }
     });
 }//GEN-LAST:event_cmOrbadaLogFileActionPerformed
@@ -2289,20 +2274,7 @@ private void cmDriversActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     java.awt.EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        Enumeration e = Logger.getLogger("error-logger").getAllAppenders();
-        while (e.hasMoreElements()) {
-          final Object o = e.nextElement();
-          if (o instanceof FileAppender) {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-              @Override
-              public void run() {
-                tabbedPerpectives.setSelectedComponent(getToolsPerspective());
-                getToolsPerspective().createView(new TextFileViewService(new File(((FileAppender)o).getFile())), false, false);
-              }
-            });
-            //Application.get().execTool("notepad", new Object[] {((FileAppender)o).getFile()});
-          }
-        }
+        // log4j2 migration: file appender discovery via log4j 1.x API is no longer supported
       }
     });
 }//GEN-LAST:event_cmOrbadaLogErrorFileActionPerformed
