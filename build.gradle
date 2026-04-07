@@ -1,14 +1,16 @@
 apply plugin: "maven"
 
 group = "orbada"
-version = "1.2.4"
+version = "2.0.0"
+
+def orbadaJavaVersion = findProperty('orbadaJavaVersion') ?: '1.6'
 
 
 allprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     compileJava.options.encoding = 'ISO-8859-1'
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
+    sourceCompatibility = orbadaJavaVersion
+    targetCompatibility = orbadaJavaVersion
 
     repositories {
         mavenCentral()
@@ -21,52 +23,58 @@ allprojects {
     dependencies {
 
         // external dependencies
-        compile group: 'org.beanshell', name: 'bsh', version: '2.0b4'
-        compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
-        compile group: 'com.lowagie', name: 'itext', version: '2.1.3'
-        compile group: 'com.linuxense', name: 'javadbf', version: '0.4.0'
+        implementation group: 'org.beanshell', name: 'bsh', version: '2.0b4'
+        implementation group: 'dom4j', name: 'dom4j', version: '1.6.1'
+        implementation group: 'com.lowagie', name: 'itext', version: '2.1.3'
+        implementation group: 'com.linuxense', name: 'javadbf', version: '0.4.0'
 //        compile group: 'org.jmeld', name: 'jmeld', version: '2.1'
-        compile group: 'org.firebirdsql.jdbc', name: 'jaybird', version: '2.1.6'
-        compile group: 'log4j', name: 'log4j', version: '1.2.17'
-        compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.12'
-        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.12'
-        compile group: 'net.sf.nimrod', name: 'nimrod-laf', version: '1.2'
-        compile group: 'org.apache.poi', name: 'poi', version: '3.13'
-        compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
-        compile group: 'net.sf.squirrel-sql.thirdparty-non-maven', name: 'tinylaf', version: '1.4.0'
-        compile group: 'com.jgoodies', name: 'looks', version: '2.1.4'
+        implementation group: 'org.firebirdsql.jdbc', name: 'jaybird', version: '2.1.6'
+        implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+        implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.12'
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.12'
+        implementation group: 'net.sf.nimrod', name: 'nimrod-laf', version: '1.2'
+        implementation group: 'org.apache.poi', name: 'poi', version: '3.13'
+        implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
+        implementation group: 'net.sf.squirrel-sql.thirdparty-non-maven', name: 'tinylaf', version: '1.4.0'
+        implementation group: 'com.jgoodies', name: 'looks', version: '2.1.4'
 
-        compile fileTree("${rootProject.projectDir}/libs/bin/")
+        implementation fileTree("${rootProject.projectDir}/libs/bin/")
 
 
         if(!project.name.equals("orbada-res")){
             // adding res module to all modules but not for itself
-            compile project(':orbada-res')
+            api project(':orbada-res')
         }
     }
 }
 
 dependencies {
-    compile project(':drink-master')
-    compile project(':json')
-    compile project(':orbada-core')
-    compile project(':orbada-datatext')
-    compile project(':orbada-db-objects')
-    compile project(':orbada-g2')
-    compile project(':orbada-id')
-    compile project(':orbada-parser')
-    compile project(':orbada-plugins')
-    compile project(':orbada-prop')
-    compile project(':orbada-reports-db')
-    compile project(':orbada-sky')
-    compile project(':orbada-task')
-    compile project(':orbada-userdb')
-    compile project(':orbada-util')
-    compile project(':orbada-waitdlg')
+    api project(':drink-master')
+    api project(':json')
+    api project(':orbada-core')
+    api project(':orbada-datatext')
+    api project(':orbada-db-objects')
+    api project(':orbada-g2')
+    api project(':orbada-id')
+    api project(':orbada-parser')
+    api project(':orbada-plugins')
+    api project(':orbada-prop')
+    api project(':orbada-reports-db')
+    api project(':orbada-sky')
+    api project(':orbada-task')
+    api project(':orbada-userdb')
+    api project(':orbada-util')
+    api project(':orbada-waitdlg')
 }
 
 gradle.buildFinished {
     print('>>>> end')
+
+    if (!(gradle.taskGraph.hasTask(':build') || gradle.taskGraph.hasTask(':assemble') || gradle.taskGraph.hasTask(':jar'))) {
+        return
+    }
+
+    def packagedDependencies = configurations.findByName('runtimeClasspath') ?: configurations.findByName('compileClasspath')
 
 
     ant.copy(
@@ -106,7 +114,7 @@ gradle.buildFinished {
 //        })
 
         // adding dependencies
-        configurations.compile.collect {
+        packagedDependencies.collect {
             zipfileset("file": it.absolutePath, fullpath: "lib/${it.name}")
         }
     }

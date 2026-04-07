@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.util.Base64;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 
@@ -33,8 +34,6 @@ import pl.mpak.usedb.UseDBException;
 import pl.mpak.util.StringUtil;
 import pl.mpak.util.variant.VariantException;
 import pl.mpak.util.variant.VariantType;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class XMLUtils {
 
@@ -110,8 +109,8 @@ public class XMLUtils {
           if (field != null) {
             try {
               if (entry.hasAttribute("dt")) {
-                if (StringUtil.equals(entry.getAttribute("dt"), BINARY_DATA_TYPE)) {
-                  field.setBinary(new BASE64Decoder().decodeBuffer(val));
+                  if (StringUtil.equals(entry.getAttribute("dt"), BINARY_DATA_TYPE)) {
+                  field.setBinary(Base64.getMimeDecoder().decode(val));
                 }
                 else {
                   field.setString(val);
@@ -162,9 +161,9 @@ public class XMLUtils {
       Element entry = (Element) record.appendChild(doc.createElement("entry"));
       entry.setAttribute("field", field.getFieldName());
       if (field.getValue().getValueType() == VariantType.varBinary) {
-        entry.setAttribute("dt", BINARY_DATA_TYPE);
+          entry.setAttribute("dt", BINARY_DATA_TYPE);
         try {
-          entry.appendChild(doc.createCDATASection(new BASE64Encoder().encode(field.getValue().getBinary())));
+          entry.appendChild(doc.createCDATASection(Base64.getMimeEncoder().encodeToString(field.getValue().getBinary())));
         } catch (Exception e) {
         }
       }

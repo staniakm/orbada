@@ -1,10 +1,10 @@
 dependencies {
-	compile project(':orbada-util')
-	compile project(':orbada-prop')
-	compile project(':orbada-plugins')
-	compile project(':orbada-db-objects')
-	compile project(':orbada-waitdlg')
-	compile project(':json')
-	compile project(':orbada-g2')
+	api project(':orbada-util')
+	api project(':orbada-prop')
+	api project(':orbada-plugins')
+	api project(':orbada-db-objects')
+	api project(':orbada-waitdlg')
+	api project(':json')
+	api project(':orbada-g2')
 //	compile project(':orbada-laf-jgoodies')
 }

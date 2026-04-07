@@ -1,5 +1,5 @@
 dependencies {
-	compile project(':orbada-plugins')
-	compile project(':orbada-util')
-	compile project(':orbada-id')
+	api project(':orbada-plugins')
+	api project(':orbada-util')
+	api project(':orbada-id')
 }

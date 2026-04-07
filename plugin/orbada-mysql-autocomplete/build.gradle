@@ -1,4 +1,4 @@
 dependencies {
-	compile project(':orbada-sky')
-	compile project(':plugin:orbada-mysql')
+	api project(':orbada-sky')
+	api project(':plugin:orbada-mysql')
 }

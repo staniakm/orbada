@@ -1,3 +1,3 @@
 dependencies {
-	compile project(':plugin:orbada-firebird')
+	api project(':plugin:orbada-firebird')
 }

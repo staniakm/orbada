@@ -1,6 +1,6 @@
 dependencies {
-	compile project(':orbada-core')
-	compile project(':orbada-sky')
-	compile project(':orbada-userdb')
-	compile project(':plugin:orbada-universal')
+	api project(':orbada-core')
+	api project(':orbada-sky')
+	api project(':orbada-userdb')
+	api project(':plugin:orbada-universal')
 }
