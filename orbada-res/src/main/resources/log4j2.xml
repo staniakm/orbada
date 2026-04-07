@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%3p %d{yyyy-MM-dd HH:mm:ss} (%F:%L) - %m%n" charset="UTF-8"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache" level="warn"/>
+        <Logger name="org.springframework" level="info"/>
+        <Logger name="springfox.documentation" level="warn"/>
+        <Logger name="com.mageddo" level="debug"/>
+        <Logger name="pl.mpak" level="debug"/>
+        <Root level="info">
+            <AppenderRef ref="stdout"/>
+        </Root>
+    </Loggers>
+</Configuration>
