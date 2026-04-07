@@ -1,14 +1,15 @@
 group = "orbada"
 version = "2.0.0"
 
-def orbadaJavaVersion = findProperty('orbadaJavaVersion') ?: '1.6'
-
 
 allprojects {
     apply plugin: 'java-library'
     compileJava.options.encoding = 'ISO-8859-1'
-    sourceCompatibility = orbadaJavaVersion
-    targetCompatibility = orbadaJavaVersion
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
 
     repositories {
         mavenCentral()
