@@ -308,14 +308,19 @@ public class Application implements IApplication, WindowListener {
       String orbadaLafClassName = localProperties.getProperty(Consts.lookAndFeelLocalClass, getProperty(Consts.lookAndFeelLocalClass));
       if (!StringUtil.isEmpty(orbadaLafClassName)) {
         LoggerFactory.getLogger("orbada").info("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" property: " +orbadaLafClassName);
-        Class lafClass = Class.forName(orbadaLafClassName);
-        Object lafObject = lafClass.newInstance();
-        if (lafObject instanceof ILookAndFeelStarter) {
-          ((ILookAndFeelStarter)lafObject).setApplication(this);
-          ((ILookAndFeelStarter)lafObject).start();
-        }
-        else {
-          LoggerFactory.getLogger("orbada").error("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" is not implementation of ILookAndFeelStarter");
+        try {
+          Class lafClass = Class.forName(orbadaLafClassName);
+          Object lafObject = lafClass.newInstance();
+          if (lafObject instanceof ILookAndFeelStarter) {
+            ((ILookAndFeelStarter)lafObject).setApplication(this);
+            ((ILookAndFeelStarter)lafObject).start();
+          }
+          else {
+            LoggerFactory.getLogger("orbada").error("Orbada LAF from \"" + Consts.lookAndFeelLocalClass +"\" is not implementation of ILookAndFeelStarter");
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+          }
+        } catch (ClassNotFoundException ex) {
+          LoggerFactory.getLogger("orbada").warn("Orbada LAF class not found: " + orbadaLafClassName + " — falling back to system LAF");
           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
       }

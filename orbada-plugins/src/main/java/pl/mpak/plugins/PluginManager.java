@@ -196,10 +196,12 @@ public class PluginManager {
     Assert.notEmpty(pluginPath);
     File pluginPathFile = new File(pluginPath);
     if(!pluginPathFile.exists() || (pluginPathFile.list() != null && pluginPathFile.list().length == 0)){
-      final File resourcesPlugin = new File(ClassLoader.getSystemClassLoader()
-          .getResource(pluginPath).getFile());
-      if(resourcesPlugin.exists() && resourcesPlugin.isDirectory()) {
-        pluginPathFile = resourcesPlugin;
+      java.net.URL resourceUrl = ClassLoader.getSystemClassLoader().getResource(pluginPath);
+      if (resourceUrl != null) {
+        final File resourcesPlugin = new File(resourceUrl.getFile());
+        if(resourcesPlugin.exists() && resourcesPlugin.isDirectory()) {
+          pluginPathFile = resourcesPlugin;
+        }
       }
     }
 
