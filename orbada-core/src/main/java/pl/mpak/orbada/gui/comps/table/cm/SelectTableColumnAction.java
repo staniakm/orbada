@@ -58,7 +58,7 @@ public class SelectTableColumnAction extends Action {
         for (int i=0; i<table.getColumnCount(); i++) {
           TableColumn tc = table.getColumnModel().getColumn(i);
           Vector<String> item = new Vector<String>();
-          item.add(new Integer(i).toString());
+          item.add(Integer.valueOf(i).toString());
           item.add(tc.getHeaderValue().toString());
           if (tc instanceof QueryTableColumn) {
             QueryField qf = ((QueryTableColumn)tc).getField();

@@ -59,7 +59,7 @@ public class TableColumnDefinitionWizard extends SqlCodeWizardPanel {
     else {
       tableColumns.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
-          {"COLUMNA_1", "VARCHAR2(4000)", new Boolean(true), new Boolean(false), null, null}
+          {"COLUMNA_1", "VARCHAR2(4000)", true, false, null, null}
         },
         new String [] {
           stringManager.getString("column-name"), stringManager.getString("type-and-size"), stringManager.getString("is-not-null"), stringManager.getString("pk"), stringManager.getString("default-value"), stringManager.getString("comment")
@@ -312,7 +312,7 @@ private void cmAddRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
       ((DefaultTableModel)tableColumns.getModel()).addRow(new Object[] {"COLUMNA_" +columnCount, "VARCHAR2(4000)"});
     }
     else {
-      ((DefaultTableModel)tableColumns.getModel()).addRow(new Object[] {"COLUMNA_" +columnCount, "VARCHAR2(4000)", new Boolean(true), new Boolean(false), null, null});
+      ((DefaultTableModel)tableColumns.getModel()).addRow(new Object[] {"COLUMNA_" +columnCount, "VARCHAR2(4000)", true, false, null, null});
     }
     tableColumns.changeSelection(tableColumns.getRowCount() -1, tableColumns.getRowCount() -1);
   }

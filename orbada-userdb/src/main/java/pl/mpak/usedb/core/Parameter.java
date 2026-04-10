@@ -189,7 +189,7 @@ public class Parameter {
           case Types.REAL:
           case Types.DOUBLE:
           case Types.FLOAT:
-            setDouble((new Double(value.toString())).doubleValue());
+            setDouble(Double.parseDouble(value.toString()));
             break;
           case Types.BOOLEAN:
             setBoolean((Boolean.valueOf(value.toString())).booleanValue());
@@ -199,7 +199,7 @@ public class Parameter {
               setDate(((Variant)value).getDate());
             }
             else {
-              setDate((new Long(value.toString())).longValue());
+              setDate(Long.parseLong(value.toString()));
             }
             break;
           case Types.TIME:
@@ -207,7 +207,7 @@ public class Parameter {
               setTime(((Variant)value).getLong());
             }
             else {
-              setTime((new Long(value.toString())).longValue());
+              setTime(Long.parseLong(value.toString()));
             }
             break;
           case Types.TIMESTAMP:
@@ -215,7 +215,7 @@ public class Parameter {
               setTimestamp(((Variant)value).getLong());
             }
             else {
-              setTimestamp((new Long(value.toString())).longValue());
+              setTimestamp(Long.parseLong(value.toString()));
             }
             break;
           case Types.BLOB:
@@ -447,19 +447,17 @@ public class Parameter {
   }
 
   int getPositionAtIndex(int inx) {
-    return ((Integer) paramIndexs.get(inx)).intValue();
+    return paramIndexs.get(inx);
   }
 
   void addPosition(int pos) {
-    if (paramIndexs.indexOf(Integer.valueOf(pos)) == -1) {
-      paramIndexs.add(Integer.valueOf(pos));
+    if (!paramIndexs.contains(pos)) {
+      paramIndexs.add(pos);
     }
   }
 
   void removePosition(int pos) {
-    if (paramIndexs.indexOf(Integer.valueOf(pos)) != -1) {
-      paramIndexs.remove(Integer.valueOf(pos));
-    }
+    paramIndexs.remove((Integer) pos);
   }
   
   public String toString() {

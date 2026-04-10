@@ -33,7 +33,7 @@ public class FunctionParameterDefinitionWizard extends SqlCodeWizardPanel {
     paramCount++;
     tableParameters.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
-        {"PARAMETR_1", "VARCHAR2", "IN", new Boolean(false), null, null}
+        {"PARAMETR_1", "VARCHAR2", "IN", false, null, null}
       },
       new String [] {
         stringManager.getString("parameter-name"), stringManager.getString("type"), stringManager.getString("mode"), stringManager.getString("no-copy"), stringManager.getString("default-value")
@@ -242,7 +242,7 @@ private void cmRemoveRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void cmAddRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmAddRowActionPerformed
   if (tableParameters.getRowCount() == 0 || tableParameters.getValueAt(tableParameters.getRowCount() -1, 0) != null) {
     paramCount++;
-    ((DefaultTableModel)tableParameters.getModel()).addRow(new Object[] {"PARAMETR_" +paramCount, "VARCHAR2", "IN", new Boolean(false), null, null});
+    ((DefaultTableModel)tableParameters.getModel()).addRow(new Object[] {"PARAMETR_" +paramCount, "VARCHAR2", "IN", false, null, null});
     tableParameters.changeSelection(tableParameters.getRowCount() -1, tableParameters.getRowCount() -1);
   }
 }//GEN-LAST:event_cmAddRowActionPerformed

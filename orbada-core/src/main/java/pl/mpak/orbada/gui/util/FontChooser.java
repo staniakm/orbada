@@ -32,8 +32,8 @@ public class FontChooser extends javax.swing.JDialog {
     "Plain", "Italic", "Bold", "Bold + Italic" };
   
   public static final Integer[] styleValues = new Integer[] {
-    new Integer(Font.PLAIN), new Integer(Font.ITALIC),
-    new Integer(Font.BOLD), new Integer(Font.BOLD + Font.ITALIC) };
+          Font.PLAIN, Font.ITALIC,
+    Font.BOLD, Font.BOLD + Font.ITALIC };
   
   public static final String[] sizeNames = new String[] {
     "8", "10", "11", "12", "14", "18", "20", "24", "28", "32", "40", "48", "56", "64", "72" };
@@ -55,10 +55,10 @@ public class FontChooser extends javax.swing.JDialog {
   }
   
   /**
-   * <p>Pozwala wybraæ czcionkê
+   * <p>Pozwala wybraï¿½ czcionkï¿½
    * @param title
    * @param font
-   * @return wybrany font lub null jeœli zaniechano
+   * @return wybrany font lub null jeï¿½li zaniechano
    */
   public static Font showDialog(String title, Font font) {
     FontChooser dialog = new FontChooser(title, font);

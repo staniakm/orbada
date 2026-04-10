@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * @author Andrzej Ka³u¿a
+ * @author Andrzej Kaï¿½uï¿½a
  * 
- * Tokenizer pozwalaj¹cy analizowaæ ci¹g znaków
+ * Tokenizer pozwalajï¿½cy analizowaï¿½ ciï¿½g znakï¿½w
  *
  *  try {
  *    Tokenizer pr = new Tokenizer("system .out.println(\"polopiryn'a\")", new SimpleTokenHandle());
@@ -91,8 +91,8 @@ public class Tokenizer  {
   }
   
   /**
-   * Zwraca informacjê czy osi¹gniêto koniec zbioru
-   * Równoznaczne z getReadedCh() == 0 
+   * Zwraca informacjï¿½ czy osiï¿½gniï¿½to koniec zbioru
+   * Rï¿½wnoznaczne z getReadedCh() == 0 
    * @return
    */
   public boolean isEof() {
@@ -100,7 +100,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Który znak w ci¹gu
+   * Ktï¿½ry znak w ciï¿½gu
    * @return
    */
   public int getCurrentPos() {
@@ -108,7 +108,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Która linia 
+   * Ktï¿½ra linia 
    * @return
    */
   public int getLine() {
@@ -116,7 +116,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Który znak w wierszu
+   * Ktï¿½ry znak w wierszu
    * @return
    */
   public int getColumn() {
@@ -124,7 +124,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Pocz¹tkowy znak tokenu w ci¹gu znaków
+   * Poczï¿½tkowy znak tokenu w ciï¿½gu znakï¿½w
    * @return
    */
   public int getTokenStartPos() {
@@ -165,7 +165,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Testuje czy pobrany znak jest jednym ze znaków w text
+   * Testuje czy pobrany znak jest jednym ze znakï¿½w w text
    * @param ch
    * @return
    */
@@ -194,7 +194,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Pobiera nastêpny token
+   * Pobiera nastï¿½pny token
    * @return
    * @throws IOException
    * @see getToken()
@@ -246,19 +246,19 @@ public class Tokenizer  {
    * @return
    */
   public double getNumber() {
-    return new Double(getString());
+    return Double.parseDouble(getString());
   }
   
   /**
-   * Zwraca token w postaci liczby ca³kowitej
+   * Zwraca token w postaci liczby caï¿½kowitej
    * @return
    */
   public int getInteger() {
-    return new Integer(getString());
+    return Integer.parseInt(getString());
   }
   
   /**
-   * Zwraca token w postaci liczby ca³kowitej du¿ej
+   * Zwraca token w postaci liczby caï¿½kowitej duï¿½ej
    * @return
    */
   public BigInteger getBigInteger() {
@@ -266,7 +266,7 @@ public class Tokenizer  {
   }
   
   /**
-   * Zwraca token w postaci liczby rzeczywistej du¿ej
+   * Zwraca token w postaci liczby rzeczywistej duï¿½ej
    * @return
    */
   public BigDecimal getBigDecimal() {
@@ -274,8 +274,8 @@ public class Tokenizer  {
   }
   
   /**
-   * Testuje token na równoœæ z getTokenString()
-   * Jeœli s¹ równe funkcja zwraca true
+   * Testuje token na rï¿½wnoï¿½ï¿½ z getTokenString()
+   * Jeï¿½li sï¿½ rï¿½wne funkcja zwraca true
    * @param token
    * @param caseInsensitive
    * @return
@@ -285,8 +285,8 @@ public class Tokenizer  {
   }
   
   /**
-   * Testuje ci¹gi znakó w tokens na równoœæ z getTokenString()
-   * Jeœli którykolwiek jest równy funkcja zwraca true
+   * Testuje ciï¿½gi znakï¿½ w tokens na rï¿½wnoï¿½ï¿½ z getTokenString()
+   * Jeï¿½li ktï¿½rykolwiek jest rï¿½wny funkcja zwraca true
    * @param tokens
    * @param caseInsensitive
    * @return

@@ -73,7 +73,7 @@ public class Token implements Cloneable {
    * @return
    */
   public double getNumber() {
-    return new Double(getString());
+    return Double.parseDouble(getString());
   }
   
   /**
@@ -85,15 +85,15 @@ public class Token implements Cloneable {
   }
   
   /**
-   * Zwraca token w postaci liczby ca³kowitej
+   * Zwraca token w postaci liczby caï¿½kowitej
    * @return
    */
   public int getInteger() {
-    return new Integer(getString());
+    return Integer.parseInt(getString());
   }
   
   /**
-   * Zwraca token w postaci liczby ca³kowitej du¿ej
+   * Zwraca token w postaci liczby caï¿½kowitej duï¿½ej
    * @return
    */
   public BigInteger getBigInteger() {
@@ -101,7 +101,7 @@ public class Token implements Cloneable {
   }
   
   /**
-   * Zwraca token w postaci liczby rzeczywistej du¿ej
+   * Zwraca token w postaci liczby rzeczywistej duï¿½ej
    * @return
    */
   public BigDecimal getBigDecimal() {
@@ -109,8 +109,8 @@ public class Token implements Cloneable {
   }
   
   /**
-   * Testuje token na równoœæ z getTokenString()
-   * Jeœli s¹ równe funkcja zwraca true
+   * Testuje token na rï¿½wnoï¿½ï¿½ z getTokenString()
+   * Jeï¿½li sï¿½ rï¿½wne funkcja zwraca true
    * @param token
    * @param caseInsensitive
    * @return
@@ -124,8 +124,8 @@ public class Token implements Cloneable {
   }
   
   /**
-   * Testuje ci¹gi znaków w tokens na równoœæ z getTokenString()
-   * Jeœli którykolwiek jest równy funkcja zwraca true
+   * Testuje ciï¿½gi znakï¿½w w tokens na rï¿½wnoï¿½ï¿½ z getTokenString()
+   * Jeï¿½li ktï¿½rykolwiek jest rï¿½wny funkcja zwraca true
    * @param tokens
    * @param caseInsensitive
    * @return

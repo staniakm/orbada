@@ -23,18 +23,18 @@ public class QueryUtil {
   }
 
   /**
-   * Pobiera wiersz z otwartego query i tworzy z niego w zale¿noœci od parametru 
-   * columns listê wierszy w uk³adzie pionowym czyli
+   * Pobiera wiersz z otwartego query i tworzy z niego w zaleï¿½noï¿½ci od parametru 
+   * columns listï¿½ wierszy w ukï¿½adzie pionowym czyli
    * [[DATA,TITLE,FIELD_NAME,FIELD_TYPE],[DATA,TITLE,FIELD_NAME,FIELD_TYPE],[...]]
-   * Query musi byæ ustawione na odpowiednim wierszu
+   * Query musi byï¿½ ustawione na odpowiednim wierszu
    * 
    * @param query otwarty obiekt Query
-   * @param columns kolumny które maj¹ byæ umieszczone na liœcie
+   * @param columns kolumny ktï¿½re majï¿½ byï¿½ umieszczone na liï¿½cie
    * @return lista Vector&lt;Vector&gt;
    */
   public static Vector<Vector<String>> rotateRow(Query query, int[] columns) {
     Vector<Vector<String>> list = new Vector<Vector<String>>();
-    
+
     QueryFieldList tfl = query.getFieldList();
     for (int i=0; i<tfl.getFieldCount(); i++) {
       Vector<String> line = new Vector<String>();
@@ -71,19 +71,19 @@ public class QueryUtil {
   }
   
   /**
-   * <p>Pobiera wiersz z otwartego query i tworzy z niego w zale¿noœci od parametru 
-   * columns listê wierszy w uk³adzie pionowym czyli
+   * <p>Pobiera wiersz z otwartego query i tworzy z niego w zaleï¿½noï¿½ci od parametru 
+   * columns listï¿½ wierszy w ukï¿½adzie pionowym czyli
    * [[TITLE,DATA],[TITLE,DATA],[...]]
-   * <p>TITLE bêdzie do³aczone tylko w pierszej kolumnie wynikowej
+   * <p>TITLE bï¿½dzie doï¿½aczone tylko w pierszej kolumnie wynikowej
    * 
    * @param query otwarty obiekt Query
-   * @param columns kolumny które maj¹ byæ umieszczone na liœcie
+   * @param columns kolumny ktï¿½re majï¿½ byï¿½ umieszczone na liï¿½cie
    * @return lista Vector&lt;Vector&gt;
    * @throws Exception 
    */
   public static Vector<Vector<String>> rotateRows(Query query, int[] columns) throws Exception {
     Vector<Vector<String>> list = new Vector<Vector<String>>();
-    
+
     QueryFieldList tfl = query.getFieldList();
     for (int i=0; i<tfl.getFieldCount(); i++) {
       list.add(new Vector<String>());
@@ -123,10 +123,10 @@ public class QueryUtil {
   }
   
   /**
-   * Na podstawie danych z query tworzy statyczn¹ listê kolumn i wierszy
+   * Na podstawie danych z query tworzy statycznï¿½ listï¿½ kolumn i wierszy
    * 
    * @param query otwarte query
-   * @param title czy maj¹ byæ do listy do³aczone tytu³y kolumn
+   * @param title czy majï¿½ byï¿½ do listy doï¿½aczone tytuï¿½y kolumn
    * @return lista Vector&lt;Vector&gt;
    * @throws Exception
    */
@@ -148,7 +148,7 @@ public class QueryUtil {
   }
   
   /**
-   * <p>Na podstawie danych z query tworzy statyczn¹ listê kolumn i wierszy
+   * <p>Na podstawie danych z query tworzy statycznï¿½ listï¿½ kolumn i wierszy
    * 
    * @param format 
    * @see QueryUtil.format
@@ -179,7 +179,7 @@ public class QueryUtil {
   }
   
   /**
-   * Tworzy listê nazw pobranych z query
+   * Tworzy listï¿½ nazw pobranych z query
    * 
    * @param query
    * @return
@@ -216,8 +216,8 @@ public class QueryUtil {
   }
   
   /**
-   * <p>Funkcja pozwala pobraæ dane z aktualnego rekordu Query i wstawiæ je do ci¹g znaków.
-   * @param format formatuj¹cy ci¹g znaków, dostêp do pól w formatowaniu odbywa siê 
+   * <p>Funkcja pozwala pobraï¿½ dane z aktualnego rekordu Query i wstawiï¿½ je do ciï¿½g znakï¿½w.
+   * @param format formatujï¿½cy ciï¿½g znakï¿½w, dostï¿½p do pï¿½l w formatowaniu odbywa siï¿½ 
    * poprzez ich wyspecyfikowanie zgodnie z {NAZWA_POLA}
    * @param query
    * @return
