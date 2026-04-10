@@ -103,7 +103,7 @@ public class Application implements IApplication, WindowListener {
   private boolean firstRun;
 
   private static Image orbadaSplashLogo;
-	private static final String fontChars = "A?BC?DE?FGHIJKL?MN?O�PQRS?TUVWXYZ??0123456789!@#$%^&*()-=_+[]{};':\",./<>?|\\";
+	private static final String fontChars = "A?BC?DE?FGHIJKL?MN?O?PQRS?TUVWXYZ??0123456789!@#$%^&*()-=_+[]{};':\",./<>?|\\";
   private static BufferedImage fontsImage;
   private static RasterFont fonts;
   private static BufferedImage fontsSmallImage;
@@ -978,4 +978,4 @@ public class Application implements IApplication, WindowListener {
     this.lastVersion = lastVersion;
   }
 
-}
+}

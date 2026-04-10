@@ -22,12 +22,12 @@ public class Consts {
   private final static StringManager stringManager = StringManagerFactory.getStringManager("orbada");
 
   public final static VersionID orbadaVersion = new VersionID(1, 2, 4, 369);
-  public final static String orbadaReleaseDate = "2015-04-02";
-  public final static String orbadaSubname = "Dzianisz, Polska";
+  public final static String orbadaReleaseDate = "2026-04-10";
+  public final static String orbadaSubname = "Polska";
   
   public final static String orbadaUserId = "20080808194053-00000D1B617B0B5A-EBA871AB";
-  public final static String orbadaAutor = "Andrzej Ka�u�a";
-  public final static String orbadaYears = "2007-2015";
+  public final static String orbadaAutor = "";
+  public final static String orbadaYears = "2026-";
   public final static String orbadaCopyrights = "All interested";
   public final static String orbadaFirstRun = stringManager.getString("splash-orbada-first-run-3d");
 
