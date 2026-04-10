@@ -92,7 +92,7 @@ public class BeanEditorLink implements FocusListener {
           setter.invoke(linkObject, new Object[] {Double.valueOf(component.getText())});
         }
         else if (parmType == Color.class) {
-          setter.invoke(linkObject, new Object[] {new Color(new Integer(component.getText()))});
+          setter.invoke(linkObject, new Object[] {new Color(Integer.parseInt(component.getText()))});
         }
         else {
           setter.invoke(linkObject, new Object[] {component.getText()});

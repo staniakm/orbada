@@ -35,31 +35,31 @@ import java.util.Iterator;
 public class XML {
 
     /** The Character '&'. */
-    public static final Character AMP   = new Character('&');
+    public static final Character AMP   = Character.valueOf('&');
 
     /** The Character '''. */
-    public static final Character APOS  = new Character('\'');
+    public static final Character APOS  = Character.valueOf('\'');
 
     /** The Character '!'. */
-    public static final Character BANG  = new Character('!');
+    public static final Character BANG  = Character.valueOf('!');
 
     /** The Character '='. */
-    public static final Character EQ    = new Character('=');
+    public static final Character EQ    = Character.valueOf('=');
 
     /** The Character '>'. */
-    public static final Character GT    = new Character('>');
+    public static final Character GT    = Character.valueOf('>');
 
     /** The Character '<'. */
-    public static final Character LT    = new Character('<');
+    public static final Character LT    = Character.valueOf('<');
 
     /** The Character '?'. */
-    public static final Character QUEST = new Character('?');
+    public static final Character QUEST = Character.valueOf('?');
 
     /** The Character '"'. */
-    public static final Character QUOT  = new Character('"');
+    public static final Character QUOT  = Character.valueOf('"');
 
     /** The Character '/'. */
-    public static final Character SLASH = new Character('/');
+    public static final Character SLASH = Character.valueOf('/');
 
     /**
      * Replace special characters with XML escapes:
@@ -73,7 +73,7 @@ public class XML {
      * @return The escaped string.
      */
     public static String escape(String string) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0, length = string.length(); i < length; i++) {
             char c = string.charAt(i);
             switch (c) {
@@ -327,9 +327,9 @@ public class XML {
                 if (string.indexOf('.') >= 0) {
                     return Double.valueOf(string);
                 } else if (string.indexOf('e') < 0 && string.indexOf('E') < 0) {
-                    Long myLong = new Long(string);
+                    Long myLong = Long.valueOf(string);
                     if (myLong.longValue() == myLong.intValue()) {
-                        return new Integer(myLong.intValue());
+                        return Integer.valueOf(myLong.intValue());
                     } else {
                         return myLong;
                     }
@@ -385,12 +385,12 @@ public class XML {
      */
     public static String toString(Object object, String tagName)
             throws JSONException {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int          i;
         JSONArray ja;
         JSONObject   jo;
         String       key;
-        Iterator     keys;
+        Iterator<String> keys;
         int          length;
         String       string;
         Object       value;

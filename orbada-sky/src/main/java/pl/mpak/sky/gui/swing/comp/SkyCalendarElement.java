@@ -52,7 +52,7 @@ public class SkyCalendarElement extends JPanel implements MouseListener {
     if(longDayName) {
       titleLabel.setText(DateFormat.getDateInstance(DateFormat.LONG).format(day.getTime()));
     } else {
-      titleLabel.setText(String.format("%1$td", new Object[] {new Long(day.getTime().getTime())}));
+      titleLabel.setText(String.format("%1$td", new Object[] {day.getTime().getTime()}));
     }  
     titleLabel.setFont(new java.awt.Font(titleLabel.getFont().getFontName(), 1, 11));
     titleLabel.setForeground(new java.awt.Color(255, 255, 255));

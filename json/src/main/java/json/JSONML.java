@@ -156,7 +156,7 @@ public class JSONML {
 // attribute = value
 
 	                    attribute = (String)token;
-			        	if (!arrayForm && (attribute == "tagName" || attribute == "childNode")) {
+			        	if (!arrayForm && (attribute.equals("tagName") || attribute.equals("childNode"))) {
                             throw x.syntaxError("Reserved attribute.");			        		
 			        	}
 	                    token = x.nextToken();
@@ -305,31 +305,31 @@ public class JSONML {
     	int			 i;
     	json.JSONObject jo;
     	String       key;
-	    Iterator     keys;
+	    Iterator<String> keys;
 	    int			 length;
     	Object		 object;
-    	StringBuffer sb = new StringBuffer();
+    	StringBuilder sb = new StringBuilder();
 	    String       tagName;
 	    String       value;
-	    
-// Emit <tagName	    
-    	
+
+// Emit <tagName
+
     	tagName = ja.getString(0);
 		json.XML.noSpace(tagName);
 		tagName = json.XML.escape(tagName);
 		sb.append('<');
 		sb.append(tagName);
-		
+
 		object = ja.opt(1);
 		if (object instanceof json.JSONObject) {
 			i = 2;
 			jo = (json.JSONObject)object;
-			
+
 // Emit the attributes
-			
+
 	        keys = jo.keys();
 	        while (keys.hasNext()) {
-	            key = keys.next().toString();
+	            key = keys.next();
             	json.XML.noSpace(key);
 	            value = jo.optString(key);
 	            if (value != null) {
@@ -384,18 +384,18 @@ public class JSONML {
      * @throws JSONException
      */
 	public static String toString(json.JSONObject jo) throws JSONException {
-	    StringBuffer sb = new StringBuffer();
+	    StringBuilder sb = new StringBuilder();
 	    int          i;
 	    json.JSONArray ja;
 	    String       key;
-	    Iterator     keys;
+	    Iterator<String> keys;
 	    int          length;
 	    Object		 object;
 	    String       tagName;
 	    String       value;
-	
+
 //Emit <tagName
-	
+
 		tagName = jo.optString("tagName");
 		if (tagName == null) {
 			return json.XML.escape(jo.toString());
@@ -404,12 +404,12 @@ public class JSONML {
 		tagName = json.XML.escape(tagName);
 		sb.append('<');
 		sb.append(tagName);
-	
+
 //Emit the attributes
-	
+
         keys = jo.keys();
         while (keys.hasNext()) {
-            key = keys.next().toString();
+            key = keys.next();
             if (!key.equals("tagName") && !key.equals("childNodes")) {
             	json.XML.noSpace(key);
 	            value = jo.optString(key);

@@ -10,7 +10,7 @@ public class TaskExecutor extends Thread {
   private Task currentTask;
   
   public TaskExecutor(TaskPool taskSpool) {
-    super("TaskExecuter-" +(new Long(sequence.getNextVal())).toString());
+    super("TaskExecuter-" +(Long.valueOf(sequence.getNextVal())).toString());
     this.taskPool = taskSpool;
     setPriority(Thread.MIN_PRIORITY);
     setDaemon(true);

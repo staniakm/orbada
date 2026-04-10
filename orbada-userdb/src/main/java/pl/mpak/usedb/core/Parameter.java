@@ -26,7 +26,7 @@ import pl.mpak.util.variant.Variant;
 import pl.mpak.util.variant.VariantException;
 
 /**
- * @author Andrze Ka³u¿a
+ * @author Andrze Kaï¿½uï¿½a
  *  
  */
 public class Parameter {
@@ -148,8 +148,8 @@ public class Parameter {
   }
 
   /**
-   * Funkcja nie pozwala ustawiæ wartoœci typu BLOB, aby ustawiæ tego typu parametr nale¿y
-   * pos³u¿yæ siê funkcj¹ asBinaryStream gdzie trzeba okreœliæ rozmiar
+   * Funkcja nie pozwala ustawiï¿½ wartoï¿½ci typu BLOB, aby ustawiï¿½ tego typu parametr naleï¿½y
+   * posï¿½uï¿½yï¿½ siï¿½ funkcjï¿½ asBinaryStream gdzie trzeba okreï¿½liï¿½ rozmiar
    * 
    * @param value obiekt prostego typu String, Integer, Numeric, Boolean, Date
    */
@@ -175,12 +175,12 @@ public class Parameter {
             setString(value.toString());
             break;
           case Types.BIGINT: 
-            setLong(new Long(value.toString()).longValue());
+            setLong(Long.parseLong(value.toString()));
             break;
           case Types.TINYINT:
           case Types.SMALLINT:
           case Types.INTEGER: 
-            setInteger((new Integer(value.toString())).intValue());
+            setInteger(Integer.parseInt(value.toString()));
             break;
           case Types.DECIMAL:
           case Types.NUMERIC:

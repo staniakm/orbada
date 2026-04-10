@@ -10,7 +10,7 @@ import javax.swing.event.EventListenerList;
 
 /**
  * SkyCalendar
- * @author Pawe³ Rutkowski
+ * @author Paweï¿½ Rutkowski
  * @version 1.0 beta
  *
  */
@@ -71,8 +71,8 @@ public class SkyCalendar extends JPanel implements Serializable {
       JLabel l = new JLabel();
       l.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
       l.setFont(new java.awt.Font(l.getFont().getFontName(), 0, 11));
-      l.setText(String.format("%1$tA", new Object[] { new Long(d.getTime()
-          .getTime()) }));
+      l.setText(String.format("%1$tA", new Object[] {d.getTime()
+              .getTime()}));
       // l.setBorder(new
       // javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
       l.setPreferredSize(new java.awt.Dimension(70, 20));

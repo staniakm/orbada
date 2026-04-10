@@ -86,14 +86,14 @@ public class JSONArray {
     /**
      * The arrayList where the JSONArray's properties are kept.
      */
-    private ArrayList myArrayList;
+    private ArrayList<Object> myArrayList;
 
 
     /**
      * Construct an empty JSONArray.
      */
     public JSONArray() {
-        this.myArrayList = new ArrayList();
+        this.myArrayList = new ArrayList<>();
     }
 
     /**
@@ -151,11 +151,11 @@ public class JSONArray {
      * @param collection     A Collection.
      */
     public JSONArray(Collection collection) {
-		this.myArrayList = new ArrayList();
+		this.myArrayList = new ArrayList<>();
 		if (collection != null) {
-			Iterator iter = collection.iterator();
+			Iterator<?> iter = collection.iterator();
 			while (iter.hasNext()) {
-                this.myArrayList.add(JSONObject.wrap(iter.next()));  
+                this.myArrayList.add(JSONObject.wrap(iter.next()));
 			}
 		}
     }
@@ -347,7 +347,7 @@ public class JSONArray {
      */
     public String join(String separator) throws JSONException {
         int len = length();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < len; i += 1) {
             if (i > 0) {
@@ -588,7 +588,7 @@ public class JSONArray {
      * @return this.
      */
     public JSONArray put(double value) throws JSONException {
-        Double d = new Double(value);
+        Double d = Double.valueOf(value);
         JSONObject.testValidity(d);
         put(d);
         return this;
@@ -602,7 +602,7 @@ public class JSONArray {
      * @return this.
      */
     public JSONArray put(int value) {
-        put(new Integer(value));
+        put(Integer.valueOf(value));
         return this;
     }
 
@@ -614,7 +614,7 @@ public class JSONArray {
      * @return this.
      */
     public JSONArray put(long value) {
-        put(new Long(value));
+        put(Long.valueOf(value));
         return this;
     }
 
@@ -685,7 +685,7 @@ public class JSONArray {
      * not finite.
      */
     public JSONArray put(int index, double value) throws JSONException {
-        put(index, new Double(value));
+        put(index, Double.valueOf(value));
         return this;
     }
 
@@ -700,7 +700,7 @@ public class JSONArray {
      * @throws JSONException If the index is negative.
      */
     public JSONArray put(int index, int value) throws JSONException {
-        put(index, new Integer(value));
+        put(index, Integer.valueOf(value));
         return this;
     }
 
@@ -715,7 +715,7 @@ public class JSONArray {
      * @throws JSONException If the index is negative.
      */
     public JSONArray put(int index, long value) throws JSONException {
-        put(index, new Long(value));
+        put(index, Long.valueOf(value));
         return this;
     }
 
@@ -850,7 +850,7 @@ public class JSONArray {
             return "[]";
         }
         int i;
-        StringBuffer sb = new StringBuffer("[");
+        StringBuilder sb = new StringBuilder("[");
         if (len == 1) {
             sb.append(JSONObject.valueToString(this.myArrayList.get(0),
                     indentFactor, indent));
